@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const router = require("./src/routers/auth.routes")
 const port = process.env.PORT || 5001
+const errorHandlerMiddleware = require("./src/middlewares/errorHandler")
 
 app.listen(port, () => {
   console.log(`Server started at ${port}.`);
@@ -14,6 +15,8 @@ app.get("/", (req, res) => {
     message: "Anasayfa Geldi"
   })
 })
+
+
 
 app.use(express.json())
 app.use(express.json({limit: "50mb"}))
