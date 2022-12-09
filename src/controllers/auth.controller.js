@@ -62,7 +62,7 @@ const register = async (req, res, next) => {
 
 const addFood = async (req, res, next) => {
   const saveFood= new food(req.body)
-  console.log(foodSave)
+  console.log(saveFood)
   await saveFood.save()
     .then((data) => {
       return new Response(data, "Successfuly Added!").created(res)
@@ -73,6 +73,7 @@ const addFood = async (req, res, next) => {
 }
 
 const getAllFood = async (req, res, next) => {
+  const owner = req.body.owner
   let getFood = await food.find({owner: owner[0]})
   getFood.push(...await food.find({owner: owner[1]}))
   if(getFood.length >= 1){
