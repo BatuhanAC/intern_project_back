@@ -61,7 +61,12 @@ const register = async (req, res, next) => {
 }
 
 const addFood = async (req, res, next) => {
-  const saveFood= new food(req.body)
+  
+  const saveFood= new food({
+    name:req.body.name,
+    owner:req.user._id,
+    amount:req.body.amount
+  })
   console.log(saveFood)
   await saveFood.save()
     .then((data) => {
@@ -73,9 +78,9 @@ const addFood = async (req, res, next) => {
 }
 
 const getAllFood = async (req, res, next) => {
-  const owner = req.body.owner
-  let getFood = await food.find({owner: owner[0]})
-  getFood.push(...await food.find({owner: owner[1]}))
+  const owner = req.user._id
+  let getFood = await food.find({owner: "None"})
+  getFood.push(...await food.find({owner: owner}))
   if(getFood.length >= 1){
     return new Response(getFood, "Successfuly Got Data!").success(res)
   } else { 
@@ -84,7 +89,8 @@ const getAllFood = async (req, res, next) => {
 }
 
 const addProgress = async (req, res) => {
-  const {owner, values} = req.body
+  const owner = req.user._id
+  const {values} = req.body
   const checkProgress = await progress.findOne({owner})
   if(checkProgress){
     const checkDate = checkProgress.values.find((arg) => arg.date === values[0].date)
@@ -118,7 +124,7 @@ const addProgress = async (req, res) => {
 }
 
 const getAllProgress = async (req, res, next) => {
-  const {owner} = req.body
+  const owner = req.user._id
   const getProgress = await progress.findOne({owner})
   if(getProgress){
     return new Response(getProgress, "Successfuly Got Data!").success(res)
@@ -128,7 +134,7 @@ const getAllProgress = async (req, res, next) => {
 }
 
 const me = async (req, res) => {
-  return new Response(req.user).success(res)
+  return new Response(req.user._id).success(res)
 }
 
 

@@ -7,14 +7,14 @@ router.post("/login", AuthValidation.login, login)
 
 router.post("/register", AuthValidation.register, register)
 
-router.post("/addFood", addFood)
+router.post("/addFood", tokenCheck, addFood)
 
-router.post("/getAllFood", getAllFood)
+router.get("/getAllFood", tokenCheck, getAllFood)
 
-router.post("/addProgress", addProgress)
+router.post("/addProgress", tokenCheck, addProgress)
 
-router.post("/getAllProgress", getAllProgress)
+router.get("/getAllProgress", tokenCheck, getAllProgress)
 
-router.get("/me", tokenCheck, me)
+router.post("/me", tokenCheck, me)
 
 module.exports = router
