@@ -67,7 +67,7 @@ const addFood = async (req, res, next) => {
     owner:req.user._id,
     amount:req.body.amount
   })
-  console.log(saveFood)
+
   await saveFood.save()
     .then((data) => {
       return new Response(data, "Successfuly Added!").created(res)
