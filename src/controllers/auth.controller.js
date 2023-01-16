@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
 
   if(!userInfo) {
     try {
-      throw new APIError("Email or password is incorrect!", 401)
+      throw new APIError("There is no such a registered email. Please Signup. :)", 401)
     } catch (error) {
       next(error)
     }
@@ -25,7 +25,7 @@ const login = async (req, res, next) => {
 
   if(!comparePassword) {
     try {
-      throw new APIError("Email or password is incorrect!", 401)
+      throw new APIError("Password is incorrect!", 401)
     } catch (error) {
       next(error)
     }
