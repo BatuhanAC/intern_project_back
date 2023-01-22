@@ -79,8 +79,8 @@ class AuthValidation {
   static progress = async (req, res, next) => {
     console.log(req.body)
     try {
-      await joi.object({
-        values: joi.array({
+      await joi.array({
+        values: joi.object({
           neck: joi.number().min(0).max(999).required().messages({
             "number.base": "Neck value has to be a number.",
             "number.min": "Neck value can't be less than 0.",
