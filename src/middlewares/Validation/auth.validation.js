@@ -79,58 +79,56 @@ class AuthValidation {
   static progress = async (req, res, next) => {
     console.log(req.body)
     try {
-      await joi.array({
-        values: joi.object({
-          neck: joi.number().min(0).max(999).required().messages({
-            "number.base": "Neck value has to be a number.",
-            "number.min": "Neck value can't be less than 0.",
-            "number.max": "Neck value has to be less than 1000.",
-            "number.required": "Neck value required."
-          }),
-          chest: joi.number().min(0).max(999).required().messages({
-            "number.base": "Chest value has to be a number.",
-            "number.min": "Chest value can't be less than 0.",
-            "number.max": "Chest value has to be less than 1000.",
-            "number.required": "Chest value required."
-          }),
-          waist: joi.number().min(0).max(999).required().messages({
-            "number.base": "Waist value has to be a number.",
-            "number.min": "Waist value can't be less than 0.",
-            "number.max": "Waist value has to be less than 1000.",
-            "number.required": "Waist value required."
-          }),
-          hip: joi.number().min(0).max(999).required().messages({
-            "number.base": "Hip value has to be a number.",
-            "number.min": "Hip value can't be less than 0.",
-            "number.max": "Hip value has to be less than 1000.",
-            "number.required": "Hip value required."
-          }),
-          arm: joi.number().min(0).max(999).required().messages({
-            "number.base": "Arm value has to be a number.",
-            "number.min": "Arm value can't be less than 0.",
-            "number.max": "Arm value has to be less than 1000.",
-            "number.required": "Arm value required."
-          }),
-          weight: joi.number().min(0).max(999).required().messages({
-            "number.base": "Weight value has to be a number.",
-            "number.min": "Weight value can't be less than 0.",
-            "number.max": "Weight value has to be less than 1000.",
-            "number.required": "Weight value required."
-          }),
-          fat: joi.number().min(0).max(999).required().messages({
-            "number.base": "Fat value has to be a number.",
-            "number.min": "Fat value can't be less than 0.",
-            "number.max": "Fat value has to be less than 1000.",
-            "number.required": "Fat value required."
-          }),
-          date: joi.number().required().messages({
-            "number.required": "Couldn't reach date value."
-          }),
-          day: joi.number().required().messages({
-            "number.required": "Couldn't reach day value."
-          })
+      await joi.object({
+        neck: joi.number().min(0).max(999).required().messages({
+          "number.base": "Neck value has to be a number.",
+          "number.min": "Neck value can't be less than 0.",
+          "number.max": "Neck value has to be less than 1000.",
+          "number.required": "Neck value required."
+        }),
+        chest: joi.number().min(0).max(999).required().messages({
+          "number.base": "Chest value has to be a number.",
+          "number.min": "Chest value can't be less than 0.",
+          "number.max": "Chest value has to be less than 1000.",
+          "number.required": "Chest value required."
+        }),
+        waist: joi.number().min(0).max(999).required().messages({
+          "number.base": "Waist value has to be a number.",
+          "number.min": "Waist value can't be less than 0.",
+          "number.max": "Waist value has to be less than 1000.",
+          "number.required": "Waist value required."
+        }),
+        hip: joi.number().min(0).max(999).required().messages({
+          "number.base": "Hip value has to be a number.",
+          "number.min": "Hip value can't be less than 0.",
+          "number.max": "Hip value has to be less than 1000.",
+          "number.required": "Hip value required."
+        }),
+        arm: joi.number().min(0).max(999).required().messages({
+          "number.base": "Arm value has to be a number.",
+          "number.min": "Arm value can't be less than 0.",
+          "number.max": "Arm value has to be less than 1000.",
+          "number.required": "Arm value required."
+        }),
+        weight: joi.number().min(0).max(999).required().messages({
+          "number.base": "Weight value has to be a number.",
+          "number.min": "Weight value can't be less than 0.",
+          "number.max": "Weight value has to be less than 1000.",
+          "number.required": "Weight value required."
+        }),
+        fat: joi.number().min(0).max(999).required().messages({
+          "number.base": "Fat value has to be a number.",
+          "number.min": "Fat value can't be less than 0.",
+          "number.max": "Fat value has to be less than 1000.",
+          "number.required": "Fat value required."
+        }),
+        date: joi.number().required().messages({
+          "number.required": "Couldn't reach date value."
+        }),
+        day: joi.number().required().messages({
+          "number.required": "Couldn't reach day value."
         })
-      }).validateAsync(req.body)
+      }).validateAsync(req.body.values[0])
     } catch (error) {
       try {
         throw new APIError(error.details[0].message)

@@ -11,7 +11,7 @@ router.post("/addFood", tokenCheck, addFood)
 
 router.get("/getAllFood", tokenCheck, getAllFood)
 
-router.post("/addProgress", tokenCheck, addProgress)
+router.post("/addProgress", tokenCheck, AuthValidation.progress, addProgress)
 
 router.get("/getAllProgress", tokenCheck, getAllProgress)
 
