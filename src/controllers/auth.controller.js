@@ -97,14 +97,16 @@ const addProgress = async (req, res) => {
     if(checkDate !== undefined){
       try {
         const updateProgress = await progress.updateOne({owner, "values.date": values[0].date}, {"$set":{"values.$":values[0]}})
-        return new Response(updateProgress, "Successfuly Got Data!").success(res)
+        const getProgress = await progress.findOne({owner})
+        return new Response(getProgress, "Successfuly Got Data!").success(res)
       } catch (error) {
         throw new APIError(error.message, 400)
       }
     } else {
       try {
         const updateProgress = await progress.findOneAndUpdate({owner}, {"$push":{values:values[0]}})
-        return new Response(updateProgress, "Successfuly Got Data!").success(res)
+        const getProgress = await progress.findOne({owner})
+        return new Response(getProgress, "Successfuly Got Data!").success(res)
       } catch (error) {
         throw new APIError(error.message, 400)
       }
